@@ -1,11 +1,11 @@
-# material-ui-snackbar-redux
+# material-ui-toast
 
 > Snackbar component using Material-UI v1 with Redux integration
 
 ## Install
 
 ```
-$ npm install material-ui-snackbar-redux --save
+$ npm install material-ui-toast --save
 ```
 
 ## Setup
@@ -16,7 +16,7 @@ The first step is to add the reducer to your rootReducer when creating Redux's s
 
 ```js
 import { combineReducers } from 'redux'
-import { snackbarReducer } from 'material-ui-snackbar-redux'
+import { snackbarReducer } from 'material-ui-toast'
 
 const rootReducer = combineReducers({
   // other reducers...
@@ -35,7 +35,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { SnackbarProvider } from 'material-ui-snackbar-redux'
+import { SnackbarProvider } from 'material-ui-toast'
 import App from './App' // your entry page
 import reducer from './reducers' // root reduer
 
@@ -66,7 +66,7 @@ You can display snackbar messages with the `withSnackbar` HOC and the injected `
 
 ```js
 import React from 'react'
-import { withSnackbar } from 'material-ui-snackbar-redux'
+import { withSnackbar } from 'material-ui-toast'
 import Button from '@material-ui/core/Button'
 
 class MyComponent extends React.Component {
@@ -101,7 +101,7 @@ You may use some libraries to handle asynchronous actions or side effects, like 
 
 
 ```js
-import { snackbarActions as snackbar } from 'material-ui-snackbar-redux'
+import { snackbarActions as snackbar } from 'material-ui-toast'
 
 dispatch(snackbar.show({
   message: 'Archived',
