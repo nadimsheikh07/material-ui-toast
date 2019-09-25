@@ -1,7 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
-import './index.css'
+import { Provider } from 'react-redux'
+import { SnackbarProvider } from 'material-ui-toast'
 import App from './App'
+import configureStore from './store'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const store = configureStore()
+
+ReactDOM.render(
+  <Provider store={store}>
+    <SnackbarProvider SnackbarProps={{ autoHideDuration: 1000 }}>
+      <App />
+    </SnackbarProvider>
+  </Provider>,
+  document.querySelector('#root')
+)
