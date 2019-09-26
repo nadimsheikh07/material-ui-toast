@@ -1,18 +1,20 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import actions from './actions'
 import { connect } from 'react-redux'
 import Snackbar from '@material-ui/core/Snackbar'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
 import Button from '@material-ui/core/Button'
-import actions from './actions'
+
 import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import { amber, green } from '@material-ui/core/colors';
+
+import CloseIcon from '@material-ui/icons/Close';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
-import { amber, green } from '@material-ui/core/colors';
 import WarningIcon from '@material-ui/icons/Warning';
 
 const variantIcon = {
@@ -21,7 +23,6 @@ const variantIcon = {
     error: ErrorIcon,
     info: InfoIcon,
 };
-
 
 const styles = theme => ({
     close: {
@@ -163,6 +164,8 @@ SnackbarProvider.propTypes = {
     SnackbarProps: PropTypes.object
 }
 
+SnackbarProvider = withStyles(styles)(SnackbarProvider);
+
 export default connect(
     state => ({
         snackbar: state.snackbar.queue[0] || null
@@ -171,4 +174,4 @@ export default connect(
         show: (message, action, close, variant, handleAction) => dispatch(actions.show({ message, action, close, variant, handleAction })),
         dismiss: (id) => dispatch(actions.dismiss({ id }))
     })
-)(withStyles(styles)(SnackbarProvider))
+)(SnackbarProvider)

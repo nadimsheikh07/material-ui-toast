@@ -31,17 +31,14 @@ class App extends React.Component {
     return (
       <div className={classes.root}>
 
-        <div>
-          <Typography variant="h1" component="h1">
-            Material-UI Toast Redux
-        </Typography>
-        </div>
 
-        <div>
-          <Typography variant="h4" component="h4">
-            Toast component using Material-UI with Redux integration
+        <Typography variant="h1" component="h1">
+          Material-UI Toast Redux
         </Typography>
-        </div>
+
+        <Typography variant="h4" component="h4">
+          Toast component using Material-UI with Redux integration
+        </Typography>
 
         <Button variant="contained" color="primary" className={classes.button} onClick={() => { this.handleClick('success') }}>
           Open Success Toast
