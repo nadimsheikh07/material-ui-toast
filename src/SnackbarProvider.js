@@ -22,6 +22,7 @@ const variantIcon = {
     warning: WarningIcon,
     error: ErrorIcon,
     info: InfoIcon,
+    default: InfoIcon,
 };
 
 const styles = theme => ({
@@ -39,6 +40,9 @@ const styles = theme => ({
     },
     warning: {
         backgroundColor: amber[700],
+    },
+    default: {
+        backgroundColor: '#333',
     },
     icon: {
         fontSize: 20,
@@ -59,7 +63,7 @@ class SnackbarProvider extends PureComponent {
         open: false,
         close: false,
         message: null,
-        variant: null,
+        variant: 'default',
         action: null,
         direction: {
             vertical: 'bottom',
@@ -104,7 +108,10 @@ class SnackbarProvider extends PureComponent {
     processQueue = () => {
         if (this.props.snackbar) {
             const { message, action, handleAction, close, variant, direction } = this.props.snackbar.options
-            this.setState({ open: true, message, action, close, variant, direction, handleAction })
+            if (variant) {
+                this.setState({ variant });
+            }
+            this.setState({ open: true, message, action, close, direction, handleAction })
             this.props.dismiss(this.props.snackbar.id)
         }
     }
@@ -124,7 +131,7 @@ class SnackbarProvider extends PureComponent {
                     onExited={this.handleExited}
                 >
                     <SnackbarContent
-                        className={classes[variant]}
+                        className={clsx(classes[variant], '')}
                         aria-describedby="client-snackbar"
                         message={
                             <span id="client-snackbar" className={classes.message}>
