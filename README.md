@@ -99,13 +99,16 @@ export default withSnackbar()(MyComponent)
 
 #### API
 
-**`snackbar.show(message, [action,close,variant,handler])`**
+**`const options = {message:'Archived',action: false,handleAction: () => {},close: true,variant: 'info',direction: { vertical: 'bottom', horizontal: 'right' }}`**
+**`snackbar.show(options)`**
 
 * `message` (string) – message to display
 * `action` (string, _optional_) – label for the action button
+* `handler` (function, _optional_) – click handler for the action button
 * `close` (string, _optional_) – handle close option
 * `variant` (string) – handle variant option (info, success, error, warning)
-* `handler` (function, _optional_) – click handler for the action button
+* `direction` (object) – handle direction { vertical: 'bottom', horizontal: 'right' }
+
 
 ### Dispatch actions
 
@@ -118,9 +121,10 @@ import { snackbarActions as snackbar } from 'material-ui-toast'
 dispatch(snackbar.show({
   message: 'Archived',
   action: 'Undo',
+  handleAction: () => {/* do something... */}
   close: true,
   variant: 'info',
-  handleAction: () => {/* do something... */}
+  direction: { vertical: 'bottom', horizontal: 'right' }
 }))
 ```
 

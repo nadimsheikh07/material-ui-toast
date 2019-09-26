@@ -23,7 +23,15 @@ class App extends React.Component {
 
   handleClick = (variant) => {
     const { snackbar } = this.props
-    snackbar.show(variant, false, true, variant, () => {/* do something... */ })
+    const options = {
+      message: variant,
+      action: false,
+      handleAction: () => {/* do something... */ },
+      close: true,
+      variant: variant,
+      direction: { vertical: 'bottom', horizontal: 'right' }
+    }
+    snackbar.show(options)
   }
 
   render() {

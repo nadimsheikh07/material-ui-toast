@@ -60,7 +60,11 @@ class SnackbarProvider extends PureComponent {
         close: false,
         message: null,
         variant: null,
-        action: null
+        action: null,
+        direction: {
+            vertical: 'bottom',
+            horizontal: 'right'
+        }
     }
 
     getChildContext() {
@@ -99,15 +103,15 @@ class SnackbarProvider extends PureComponent {
 
     processQueue = () => {
         if (this.props.snackbar) {
-            const { message, action, close, variant, handleAction } = this.props.snackbar
-            this.setState({ open: true, message, action, close, variant, handleAction })
+            const { message, action, handleAction, close, variant, direction } = this.props.snackbar.options
+            this.setState({ open: true, message, action, close, variant, direction, handleAction })
             this.props.dismiss(this.props.snackbar.id)
         }
     }
 
     render() {
         const { children, SnackbarProps = {}, classes } = this.props
-        const { action, message, open, close, variant } = this.state
+        const { action, message, open, close, variant, direction } = this.state
         const Icon = variantIcon[variant];
 
         return (
@@ -115,6 +119,7 @@ class SnackbarProvider extends PureComponent {
                 {children}
                 <Snackbar {...SnackbarProps}
                     open={open}
+                    anchorOrigin={direction}
                     onClose={this.handleClose}
                     onExited={this.handleExited}
                 >
@@ -171,7 +176,7 @@ export default connect(
         snackbar: state.snackbar.queue[0] || null
     }),
     dispatch => ({
-        show: (message, action, close, variant, handleAction) => dispatch(actions.show({ message, action, close, variant, handleAction })),
+        show: (options) => dispatch(actions.show({ options })),
         dismiss: (id) => dispatch(actions.dismiss({ id }))
     })
 )(SnackbarProvider)
