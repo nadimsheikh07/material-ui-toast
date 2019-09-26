@@ -29,7 +29,7 @@ class App extends React.Component {
       handleAction: () => {/* do something... */ },
       close: true,
       variant: variant,
-      direction: { vertical: 'bottom', horizontal: 'right' }
+      direction: { vertical: 'bottom', horizontal: 'center' }
     }
     snackbar.show(options)
   }
