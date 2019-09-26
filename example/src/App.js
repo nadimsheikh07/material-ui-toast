@@ -18,21 +18,28 @@ const styles = theme => ({
 class App extends React.Component {
   handleClick = () => {
     const { snackbar } = this.props
-    snackbar.show('Archived', 'Undo', () => {/* do something... */})
+    snackbar.show('Archived', 'Undo', () => {/* do something... */ })
   }
 
-  render () {
+  render() {
     const { classes } = this.props
     return (
       <div className={classes.root}>
-        <Typography variant="display1" gutterBottom>
-          Material-UI Snackbar Redux
+
+        <div>
+          <Typography variant="display1" gutterBottom>
+            Material-UI Toast Redux
         </Typography>
-        <Typography variant="subheading" gutterBottom>
-          Snackbar component using Material-UI v1 with Redux integration
+        </div>
+
+        <div>
+          <Typography variant="subheading" gutterBottom>
+            Toast component using Material-UI v1 with Redux integration
         </Typography>
+        </div>
+
         <Button variant="contained" color="secondary" onClick={this.handleClick}>
-          Open snackbar
+          Open Toast
         </Button>
       </div>
     )

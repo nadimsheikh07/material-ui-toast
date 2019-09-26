@@ -5,6 +5,17 @@ import Snackbar from '@material-ui/core/Snackbar'
 import Button from '@material-ui/core/Button'
 import actions from './actions'
 
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    close: {
+        padding: theme.spacing(0.5),
+    },
+});
+
 class SnackbarProvider extends PureComponent {
     state = {
         open: false,
@@ -55,7 +66,7 @@ class SnackbarProvider extends PureComponent {
     }
 
     render() {
-        const { children, SnackbarProps = {} } = this.props
+        const { children, SnackbarProps = {}, classes } = this.props
         const { action, message, open } = this.state
 
         return (
@@ -64,11 +75,26 @@ class SnackbarProvider extends PureComponent {
                 <Snackbar {...SnackbarProps}
                     open={open}
                     message={message || ''}
-                    action={action && (
-                        <Button color="secondary" size="small" onClick={this.handleActionClick}>
-                            {action}
-                        </Button>
-                    )}
+                    action={
+                        <React.Fragment>
+                            {action && (
+                                <Button key="action" color="secondary" size="small" onClick={this.handleActionClick}>
+                                    {action}
+                                </Button>
+                            )}
+
+                            <IconButton
+                                key="close"
+                                aria-label="close"
+                                color="inherit"
+                                className={classes.close}
+                                onClick={this.handleClose}
+                            >
+                                <CloseIcon />
+                            </IconButton>
+
+                        </React.Fragment>
+                    }
                     onClose={this.handleClose}
                     onExited={this.handleExited}
                 />
@@ -94,4 +120,4 @@ export default connect(
         show: (message, action, handleAction) => dispatch(actions.show({ message, action, handleAction })),
         dismiss: (id) => dispatch(actions.dismiss({ id }))
     })
-)(SnackbarProvider)
+)(withStyles(styles)(SnackbarProvider))
