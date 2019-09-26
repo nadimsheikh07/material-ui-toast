@@ -102,7 +102,8 @@ class MyComponent extends React.Component {
   }
 }
 
-export default withSnackbar()(MyComponent)
+MyComponent = withSnackbar(MyComponent)
+export default MyComponent
 ```
 
 #### API
