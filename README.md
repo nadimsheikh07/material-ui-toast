@@ -1,6 +1,6 @@
 # material-ui-toast
 
-> Snackbar component using Material-UI v1 with Redux integration
+> Snackbar component using Material-UI with Redux integration
 
 ## Install
 
@@ -70,16 +70,26 @@ import { withSnackbar } from 'material-ui-toast'
 import Button from '@material-ui/core/Button'
 
 class MyComponent extends React.Component {
-  handleClick () {
+
+  handleClick = (variant) => {
     const { snackbar } = this.props
-    snackbar.show('Archived', 'Undo', () => {/* do something... */})
+    snackbar.show(variant, false, true, variant, () => {/* do something... */ })
   }
 
   render () {
     <div>
-      <Button className={classes.button} onClick={this.handleClick}>
-        Open snackbar
-      </Button>
+        <Button variant="contained" color="primary" onClick={() => { this.handleClick('success') }}>
+            Open Success Toast
+        </Button>
+        <Button variant="contained" color="secondary" onClick={() => { this.handleClick('error') }}>
+            Open Error Toast
+        </Button>
+        <Button variant="contained" color="primary" onClick={() => { this.handleClick('warning') }}>
+          Open Warning Toast
+        </Button>
+        <Button variant="contained" color="secondary" onClick={() => { this.handleClick('info') }}>
+          Open info Toast
+        </Button>
     </div>
   }
 }
@@ -89,10 +99,12 @@ export default withSnackbar()(MyComponent)
 
 #### API
 
-**`snackbar.show(message, [action, handler])`**
+**`snackbar.show(message, [action,close,variant,handler])`**
 
 * `message` (string) – message to display
 * `action` (string, _optional_) – label for the action button
+* `close` (string, _optional_) – handle close option
+* `variant` (string) – handle variant option (info, success, error, warning)
 * `handler` (function, _optional_) – click handler for the action button
 
 ### Dispatch actions
@@ -106,7 +118,9 @@ import { snackbarActions as snackbar } from 'material-ui-toast'
 dispatch(snackbar.show({
   message: 'Archived',
   action: 'Undo',
-  handleAction: () => {/* do something... */} 
+  close: true,
+  variant: 'info',
+  handleAction: () => {/* do something... */}
 }))
 ```
 
