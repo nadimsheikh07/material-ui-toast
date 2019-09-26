@@ -2,25 +2,63 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Snackbar from '@material-ui/core/Snackbar'
+import SnackbarContent from '@material-ui/core/SnackbarContent'
 import Button from '@material-ui/core/Button'
 import actions from './actions'
-
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-
 import { withStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
+import InfoIcon from '@material-ui/icons/Info';
+import { amber, green } from '@material-ui/core/colors';
+import WarningIcon from '@material-ui/icons/Warning';
+
+const variantIcon = {
+    success: CheckCircleIcon,
+    warning: WarningIcon,
+    error: ErrorIcon,
+    info: InfoIcon,
+};
+
 
 const styles = theme => ({
     close: {
         padding: theme.spacing(0.5),
     },
+    success: {
+        backgroundColor: green[600],
+    },
+    error: {
+        backgroundColor: theme.palette.error.dark,
+    },
+    info: {
+        backgroundColor: theme.palette.primary.main,
+    },
+    warning: {
+        backgroundColor: amber[700],
+    },
+    icon: {
+        fontSize: 20,
+    },
+    iconVariant: {
+        opacity: 0.9,
+        marginRight: theme.spacing(1),
+    },
+    message: {
+        display: 'flex',
+        alignItems: 'center',
+    },
 });
+
 
 class SnackbarProvider extends PureComponent {
     state = {
         open: false,
         close: false,
         message: null,
+        variant: null,
         action: null
     }
 
@@ -60,46 +98,57 @@ class SnackbarProvider extends PureComponent {
 
     processQueue = () => {
         if (this.props.snackbar) {
-            const { message, action, close, handleAction } = this.props.snackbar
-            this.setState({ open: true, message, action, close, handleAction })
+            const { message, action, close, variant, handleAction } = this.props.snackbar
+            this.setState({ open: true, message, action, close, variant, handleAction })
             this.props.dismiss(this.props.snackbar.id)
         }
     }
 
     render() {
-        console.log('this.state', this.state);
         const { children, SnackbarProps = {}, classes } = this.props
-        const { action, message, open, close } = this.state
+        const { action, message, open, close, variant } = this.state
+        const Icon = variantIcon[variant];
 
         return (
             <React.Fragment>
                 {children}
                 <Snackbar {...SnackbarProps}
                     open={open}
-                    message={message || ''}
-                    action={
-                        <React.Fragment>
-                            {action && (
-                                <Button key="action" color="secondary" size="small" onClick={this.handleActionClick}>
-                                    {action}
-                                </Button>
-                            )}
-
-                            {close && <IconButton
-                                key="close"
-                                aria-label="close"
-                                color="inherit"
-                                className={classes.close}
-                                onClick={this.handleClose}
-                            >
-                                <CloseIcon />
-                            </IconButton>}
-
-                        </React.Fragment>
-                    }
                     onClose={this.handleClose}
                     onExited={this.handleExited}
-                />
+                >
+                    <SnackbarContent
+                        className={classes[variant]}
+                        aria-describedby="client-snackbar"
+                        message={
+                            <span id="client-snackbar" className={classes.message}>
+                                <Icon className={clsx(classes.icon, classes.iconVariant)} />
+                                {message || ''}
+                            </span>
+                        }
+                        action={
+                            <React.Fragment>
+                                {action && (
+                                    <Button key="action" color="secondary" size="small" onClick={this.handleActionClick}>
+                                        {action}
+                                    </Button>
+                                )}
+
+                                {close && <IconButton
+                                    key="close"
+                                    aria-label="close"
+                                    color="inherit"
+                                    className={classes.close}
+                                    onClick={this.handleClose}
+                                >
+                                    <CloseIcon />
+                                </IconButton>}
+
+                            </React.Fragment>
+                        }
+                    />
+
+                </Snackbar>
             </React.Fragment>
         )
     }
@@ -119,7 +168,7 @@ export default connect(
         snackbar: state.snackbar.queue[0] || null
     }),
     dispatch => ({
-        show: (message, action, close, handleAction) => dispatch(actions.show({ message, action, close, handleAction })),
+        show: (message, action, close, variant, handleAction) => dispatch(actions.show({ message, action, close, variant, handleAction })),
         dismiss: (id) => dispatch(actions.dismiss({ id }))
     })
 )(withStyles(styles)(SnackbarProvider))
