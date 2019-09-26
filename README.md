@@ -74,11 +74,11 @@ class MyComponent extends React.Component {
   handleClick = (variant) => {
     const { snackbar } = this.props
     const options = {
-      message: variant,
-      action: false,
+      message: 'Archived',
+      action: 'Undo',
       handleAction: () => {/* do something... */ },
       close: true,
-      variant: variant,
+      variant: 'info',
       direction: { vertical: 'bottom', horizontal: 'center' }
     }
     snackbar.show(options)
