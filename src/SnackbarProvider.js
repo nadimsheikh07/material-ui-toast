@@ -19,6 +19,7 @@ const styles = theme => ({
 class SnackbarProvider extends PureComponent {
     state = {
         open: false,
+        close: false,
         message: null,
         action: null
     }
@@ -59,15 +60,16 @@ class SnackbarProvider extends PureComponent {
 
     processQueue = () => {
         if (this.props.snackbar) {
-            const { message, action, handleAction } = this.props.snackbar
-            this.setState({ open: true, message, action, handleAction })
+            const { message, action, close, handleAction } = this.props.snackbar
+            this.setState({ open: true, message, action, close, handleAction })
             this.props.dismiss(this.props.snackbar.id)
         }
     }
 
     render() {
+        console.log('this.state', this.state);
         const { children, SnackbarProps = {}, classes } = this.props
-        const { action, message, open } = this.state
+        const { action, message, open, close } = this.state
 
         return (
             <React.Fragment>
@@ -83,7 +85,7 @@ class SnackbarProvider extends PureComponent {
                                 </Button>
                             )}
 
-                            <IconButton
+                            {close && <IconButton
                                 key="close"
                                 aria-label="close"
                                 color="inherit"
@@ -91,7 +93,7 @@ class SnackbarProvider extends PureComponent {
                                 onClick={this.handleClose}
                             >
                                 <CloseIcon />
-                            </IconButton>
+                            </IconButton>}
 
                         </React.Fragment>
                     }
@@ -117,7 +119,7 @@ export default connect(
         snackbar: state.snackbar.queue[0] || null
     }),
     dispatch => ({
-        show: (message, action, handleAction) => dispatch(actions.show({ message, action, handleAction })),
+        show: (message, action, close, handleAction) => dispatch(actions.show({ message, action, close, handleAction })),
         dismiss: (id) => dispatch(actions.dismiss({ id }))
     })
 )(withStyles(styles)(SnackbarProvider))

@@ -11,14 +11,14 @@ import { withSnackbar } from 'material-ui-toast'
 const styles = theme => ({
   root: {
     textAlign: 'center',
-    paddingTop: theme.spacing.unit * 20
+    paddingTop: theme.spacing(20)
   }
 })
 
 class App extends React.Component {
   handleClick = () => {
     const { snackbar } = this.props
-    snackbar.show('Archived', 'Undo', () => {/* do something... */ })
+    snackbar.show('Archived', false, true, () => {/* do something... */ })
   }
 
   render() {
@@ -27,14 +27,14 @@ class App extends React.Component {
       <div className={classes.root}>
 
         <div>
-          <Typography variant="display1" gutterBottom>
+          <Typography variant="h1" component="h1">
             Material-UI Toast Redux
         </Typography>
         </div>
 
         <div>
-          <Typography variant="subheading" gutterBottom>
-            Toast component using Material-UI v1 with Redux integration
+          <Typography variant="h4" component="h4">
+            Toast component using Material-UI with Redux integration
         </Typography>
         </div>
 
