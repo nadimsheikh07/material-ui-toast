@@ -119,24 +119,6 @@ export default MyComponent
 * `direction` (object) – handle direction { vertical: 'bottom', horizontal: 'right' }
 
 
-### Dispatch actions
-
-You may use some libraries to handle asynchronous actions or side effects, like [redux-thunk](https://github.com/reduxjs/redux-thunk), [redux-saga](https://github.com/redux-saga/redux-saga) and [redux-observable](https://github.com/redux-observable/redux-observable). In this context, you can use `snackbarActions` action creator to dispath actions that show snackbars.
-
-
-```js
-import { snackbarActions as snackbar } from 'material-ui-toast'
-
-dispatch(snackbar.show({
-  message: 'Archived',
-  action: 'Undo',
-  handleAction: () => {/* do something... */}
-  close: true,
-  variant: 'info',
-  direction: { vertical: 'bottom', horizontal: 'right' }
-}))
-```
-
 ## References
 
 * [Snackbars - Material Design](https://material.io/design/components/snackbars.html)
