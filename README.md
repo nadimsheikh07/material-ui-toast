@@ -51,19 +51,6 @@ ReactDOM.render(
 )
 ```
 
-#### SnackbarProvider Props
-
-|Name            |Type        |Default     |Description
-|----------------|------------|------------|--------------------------------
-|children|`node`||The children that are wrapped by this provider.
-|SnackbarProps|`object`||Properties applied to the `Snackbar` element.
-
-## Usage
-
-### Use withSnackbar HOC
-
-You can display snackbar messages with the `withSnackbar` HOC and the injected `snackbar` prop in your components.
-
 ```js
 import React from 'react'
 import { withSnackbar } from 'material-ui-toast'
