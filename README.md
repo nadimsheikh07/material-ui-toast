@@ -94,7 +94,7 @@ export default MyComponent
 
 #### API
 
-**`const options = {message:'Archived',action: false,handleAction: () => {},close: true,variant: 'info',direction: { vertical: 'bottom', horizontal: 'right' }}`**
+**`const options = {message:'Archived',action: false,handleAction: () => {},close: true,variant: 'info'`**
 **`snackbar.show(options)`**
 
 * `message` (string) – message to display
@@ -102,7 +102,6 @@ export default MyComponent
 * `handler` (function, _optional_) – click handler for the action button
 * `close` (string, _optional_) – handle close option
 * `variant` (string) – handle variant option (info, success, error, warning)
-* `direction` (object) – handle direction { vertical: 'bottom', horizontal: 'right' }
 
 
 ## References
