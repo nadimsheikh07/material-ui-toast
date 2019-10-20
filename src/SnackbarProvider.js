@@ -120,7 +120,6 @@ class SnackbarProvider extends PureComponent {
         const { children, SnackbarProps = {}, classes, direction } = this.props
         const { action, message, open, close, variant, } = this.state
         const Icon = variantIcon[variant];
-        console.log(direction)
         return (
             <React.Fragment>
                 {children}
