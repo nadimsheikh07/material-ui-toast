@@ -1,6 +1,8 @@
 # material-ui-toast
 
 > Snackbar component using Material-UI with Redux integration
+>
+[![NPM](https://img.shields.io/npm/v/material-ui-collapse-menu.svg)](https://www.npmjs.com/package/material-ui-toast) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
