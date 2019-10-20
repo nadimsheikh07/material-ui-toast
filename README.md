@@ -43,7 +43,7 @@ const store = createStore(reducer)
 
 ReactDOM.render(
   <Provider store={store}>
-    <SnackbarProvider SnackbarProps={{ autoHideDuration: 3500 }}>
+    <SnackbarProvider SnackbarProps={{ autoHideDuration: 3000 }} direction={{ vertical: 'top', horizontal: 'left' }}>
       <App />
     </SnackbarProvider>
   </Provider>,
@@ -65,8 +65,7 @@ class MyComponent extends React.Component {
       action: 'Undo',
       handleAction: () => {/* do something... */ },
       close: true,
-      variant: 'info',
-      direction: { vertical: 'bottom', horizontal: 'center' }
+      variant: 'info'
     }
     snackbar.show(options)
   }
