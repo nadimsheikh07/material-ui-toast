@@ -63,11 +63,11 @@ class MyComponent extends React.Component {
   handleClick = (variant) => {
     const { snackbar } = this.props
     const options = {
-      message: 'Archived',
-      action: 'Undo',
+      message: variant,
+      action: false,
       handleAction: () => {/* do something... */ },
       close: true,
-      variant: 'info'
+      variant: variant
     }
     snackbar.show(options)
   }
@@ -90,8 +90,7 @@ class MyComponent extends React.Component {
   }
 }
 
-MyComponent = withSnackbar(MyComponent)
-export default MyComponent
+export default withSnackbar(MyComponent)
 ```
 
 #### API
